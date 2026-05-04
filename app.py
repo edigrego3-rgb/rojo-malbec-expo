@@ -217,6 +217,10 @@ def inject_css():
     [data-testid="stLogo"] {display: none !important;}
     [data-testid="stBottom"] {display: none !important;}
     a[href^="https://streamlit.io"] {display: none !important;}
+    /* Streamlit Community Cloud viewer badge */
+    div[class^="viewerBadge_container"] {display: none !important;}
+    div[class^="styles_viewerBadge"] {display: none !important;}
+    div[class^="viewerBadge_link"] {display: none !important;}
 
     .stButton > button {
         background: linear-gradient(135deg, #B71C1C, #8B0000) !important;
@@ -540,6 +544,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
