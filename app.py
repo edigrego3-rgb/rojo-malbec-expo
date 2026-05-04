@@ -487,21 +487,26 @@ def main():
 
     inject_css()
 
-    # Check for admin mode
-    query_params = st.query_params
-    is_admin = query_params.get("admin", "false") == "true"
+    # Check for admin mode via session state or sidebar
+    if "is_admin" not in st.session_state:
+        st.session_state.is_admin = False
 
-    if is_admin:
-        password = st.text_input("🔒 Contraseña de administrador:", type="password")
+    with st.sidebar:
+        st.markdown("<h3 style='color: #C8A020;'>Panel de Control</h3>", unsafe_allow_html=True)
+        password = st.text_input("Contraseña:", type="password", key="admin_pass")
         if password == ADMIN_PASSWORD:
-            try:
-                sheet = get_sheet()
-                show_admin_page(sheet)
-            except Exception as e:
-                st.error(f"Error conectando a Google Sheets: {e}")
-                st.info("Verificá las credenciales en Streamlit Secrets.")
+            st.session_state.is_admin = True
+            st.success("Acceso concedido")
         elif password:
-            st.error("Contraseña incorrecta.")
+            st.error("Incorrecta")
+
+    if st.session_state.is_admin:
+        try:
+            sheet = get_sheet()
+            show_admin_page(sheet)
+        except Exception as e:
+            st.error(f"Error conectando a Google Sheets: {e}")
+            st.info("Verificá las credenciales en Streamlit Secrets.")
     else:
         try:
             sheet = get_sheet()
