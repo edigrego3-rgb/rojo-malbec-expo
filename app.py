@@ -207,10 +207,16 @@ def inject_css():
         border-top: 1px solid #3a2a1a;
     }
 
-    /* Hide Streamlit branding */
-    .stAppDeployButton {visibility: hidden;}
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
+    /* Hide Streamlit branding (Ultimate) */
+    .stAppDeployButton, .stDeployButton {display: none !important;}
+    #MainMenu {visibility: hidden !important;}
+    footer {display: none !important;}
+    [data-testid="stToolbar"] {visibility: hidden !important;}
+    [data-testid="stDecoration"] {display: none !important;}
+    [data-testid="stStatusWidget"] {display: none !important;}
+    [data-testid="stLogo"] {display: none !important;}
+    [data-testid="stBottom"] {display: none !important;}
+    a[href^="https://streamlit.io"] {display: none !important;}
 
     .stButton > button {
         background: linear-gradient(135deg, #B71C1C, #8B0000) !important;
@@ -534,6 +540,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
